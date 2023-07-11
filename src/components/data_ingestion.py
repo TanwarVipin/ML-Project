@@ -24,7 +24,7 @@ class DataIngestion:
         try:
             df=pd.read_csv(r'D:\Project\src\notebook\data\data.csv')
             logging.info('Exported Raw Data')
-            os.makedirs(os.path.dirname(self.ingestion_config.raw_path,exist_ok=True))
+            os.makedirs(os.path.dirname(self.ingestion_config.raw_path))
             df.to_csv(self.ingestion_config.raw_path,index=False,header=True)
             logging.info('Train Test Split')
             train,test=train_test_split(df,test_size=0.3,random_state=42)
@@ -33,7 +33,7 @@ class DataIngestion:
             logging.info('Data Ingestion Completed')
             return self.ingestion_config.train_path,self.ingestion_config.test_path
         except Exception as e:
-            raise CustomException(e,sys)
+            raise exception.CustomException(e,sys)
 if __name__=='__main__':
     obj=DataIngestion()
     obj.initiate_data_ingestion()
